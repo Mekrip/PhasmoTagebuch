@@ -1,400 +1,632 @@
+<!--
+Wichtig:
+Diese Seite ist eine stark modifizierte und übersetzte Version vom GitHub Projekt "GhostBusters"(https://github.com/yannick32/GhostBusters) erstellt von yannick32 (https://github.com/yannick32).
+
+Important:
+This page is a highly modified and translated version of the GitHub project "GhostBusters" (https://github.com/yannick32/GhostBusters) created by yannick32 (https://github.com/yannick32).
+-->
+
 <html>
-  <head>
-    <!-- Bootstrap -->
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <!-- CSS only -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
-    />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kalam&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="utf-8" />
+  <title>Mekrips besseres Phasmo-Tagebuch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <style type="text/css">
-      * {
-        margin: 0;
-        padding: 0;
-      }
-      h1 {
-        display: block;
-        font-size: 2em;
-        margin-block-start: 0.67em;
-        margin-block-end: 0.67em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-        font-weight: bold;
-      }
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet" />
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      text-shadow: 0 0 0px black;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
 
-      body {
-        background: url("journal.jpg");
-      }
+    h1 {
+      display: block;
+      font-size: 2em;
+      margin-block-start: 0.67em;
+      margin-block-end: 0.67em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      font-weight: bold;
+    }
 
-      .container {
-        padding: 25px;
-      }
+    body {
+      background: url("background.jpg");
+    }
 
-      #ghosts {
-        font-family: "Kalam", cursive;
-        color: rgb(45, 45, 45);
-        border-left: solid rgb(45, 45, 45) 3px;
-        margin-left: 5px;
-        padding-left: 25px;
-      }
+    .container {
+      padding: 25px;
+    }
 
-      #possibleGhosts {
-        list-style: square inside url("x.png");
-        text-transform: uppercase;
-      }
+    #ghosts {
+      font-family: "Kalam", cursive;
+      color: rgb(45, 45, 45);
+      border-left: solid rgb(45, 45, 45) 3px;
+      margin-left: 5px;
+      padding-left: 25px;
+    }
 
-      #possibleGhosts li {
-        font-size: 2em;
-        color: rgb(100, 50, 50);
-      }
+    #possibleGhosts {
+      list-style-position: inside;
+      list-style-image: initial;
+      list-style-type: telugu;
+      text-transform: uppercase;
+    }
 
-      #possibleGhosts p {
-        margin-top: -10px;
-        margin-bottom: 10px;
-      }
+    #possibleGhosts li {
+      font-size: 2em;
+      color: rgb(100, 50, 50);
+    }
 
-      #evidence {
-        font-family: "Kalam", cursive;
-        color: rgb(45, 45, 45);
-      }
+    #possibleGhosts p {
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
 
-      #evidence h1 {
-        margin-bottom: 15px;
-      }
+    #evidence {
+      font-family: "Kalam", cursive;
+      color: rgb(45, 45, 45);
+    }
 
-      #evidence .button {
-        margin-bottom: 15px;
-      }
+    #evidence h1 {
+      margin-bottom: 15px;
+    }
 
-      #emf,
-      #spiritbox,
-      #fingerprints,
-      #ghostorbs,
-      #ghostwritings,
-      #freezingtemperatures {
-        width: 355px;
-        height: 38px;
-        background-repeat: no-repeat;
-        background-position: left;
-      }
+    #evidence .button {
+      margin-bottom: 15px;
+    }
 
-      #emf:hover,
-      #spiritbox:hover,
-      #fingerprints:hover,
-      #ghostorbs:hover,
-      #ghostwritings:hover,
-      #freezingtemperatures:hover {
-        cursor: pointer;
-      }
+    #emf,
+    #spiritbox,
+    #fingerprints,
+    #ghostorbs,
+    #ghostwritings,
+    #dots,
+    #freezingtemperatures,
+    #reset {
+      width: 355px;
+      height: 38px;
+      font-size: 2em;
+    }
 
-      #emf {
-        background-image: url("btnsUnchecked/emf.png");
-      }
+    #reset {
+      display: inline;
+      text-shadow: 0 0 10px #ffa500;
+    }
 
-      #spiritbox {
-        background-image: url("btnsUnchecked/spiritbox.png");
-      }
+    #emf::before,
+    #spiritbox::before,
+    #fingerprints::before,
+    #ghostorbs::before,
+    #ghostwritings::before,
+    #dots::before,
+    #freezingtemperatures::before {
+      content: "> ";
+    }
 
-      #fingerprints {
-        background-image: url("btnsUnchecked/fingerprints.png");
-      }
+    #emf:hover,
+    #spiritbox:hover,
+    #fingerprints:hover,
+    #ghostorbs:hover,
+    #ghostwritings:hover,
+    #dots:hover,
+    #freezingtemperatures:hover,
+    #reset:hover {
+      cursor: pointer;
+    }
 
-      #ghostorbs {
-        background-image: url("btnsUnchecked/ghostorbs.png");
-      }
+    .strengh {
+      color: rgb(10, 0, 0);
+      display: table;
+    }
 
-      #ghostwritings {
-        background-image: url("btnsUnchecked/ghostwritings.png");
-      }
+    .weakness {
+      color: rgb(0, 88, 0);
+      display: table;
+    }
 
-      #freezingtemperatures {
-        background-image: url("btnsUnchecked/freezingtemperatures.png");
-      }
+    .categories {
+      color: rgb(210, 0, 0);
+      display: table;
+    }
 
-      .weakness {
-        color: rgb(0, 88, 0);
-      }
-    </style>
+    .wheel {
+      border-radius: 7px;
+      box-shadow: 0 0 10px #ffa500;
+      padding: 1%;
+      display: table;
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+    .wheel-header,
+    .wheel-toggle {
+      display: inline-block;
+    }
 
-    <script>
-      // 1 = EMF level 5
-      // 2 = Spirit Box
-      // 3 = Fingerprints
-      // 4 = Ghost Orbs
-      // 5 = Ghost Writings
-      // 6 = Freezing Temperatures
+    .wheel-toggle {
+      font-family: "Kalam", cursive;
+      font-size: 2em;
+      font-weight: bold;
+      text-shadow: 0 0 1px #ffa500;
+      cursor: pointer;
+    }
 
-      // ghost definitions
-      const ghostInfos = [
-        {
-          name: "spirit",
-          evidences: [2, 3, 5],
-          description:
-            "<b>Spiritbox + Fingerprints + Writings</b><br />No strengths. <span class='weakness'>Smudge sticks will pacify it for a while.</span>",
-        },
-        {
-          name: "wraith",
-          evidences: [2, 3, 6],
-          description:
-            "<b>Spiritbox + Fingerprints + Freezing temps</b><br />Floats, footsteps rare. <span class='weakness'>Has toxicity to salt.</span>",
-        },
-        {
-          name: "phantom",
-          evidences: [1, 4, 6],
-          description:
-            "<b>EMF Level 5 + Orbs + Freezing temps</b><br />Seeing it drops sanity fast. <span class='weakness'>Taking its photo makes it hide for a while.</span>",
-        },
-        {
-          name: "poltergeist",
-          evidences: [2, 3, 4],
-          description:
-            "<b>Spiritbox + Fingerprints + Orbs</b><br />Can throw objects around. <span class='weakness'>Ineffective in empty rooms.</span>",
-        },
-        {
-          name: "banshee",
-          evidences: [1, 3, 6],
-          description:
-            "<b>EMF Level 5 + Fingerprints + Freezing temps</b><br />Targets lone individuals. <span class='weakness'>Fears crucifix & less aggressive near them.</span>",
-        },
-        {
-          name: "jinn",
-          evidences: [1, 2, 4],
-          description:
-            "<b>EMF Level 5 + Spiritbox + Orbs</b><br />Travels fast if victim is far. <span class='weakness'>Kill electricity to stop its powers.</span>",
-        },
-        {
-          name: "mare",
-          evidences: [2, 4, 6],
-          description:
-            "<b>Spiritbox + Orbs + Freezing temps</b><br />More chances to attack in darkness. <span class='weakness'>Turn lights on to reduce aggression.</span>",
-        },
-        {
-          name: "revenant",
-          evidences: [1, 3, 5],
-          description:
-            "<b>EMF Level 5 + Fingerprints + Writings</b><br />Travels fast when hunting. <span class='weakness'>Moves slowly if it can't see humans.</span>",
-        },
-        {
-          name: "shade",
-          evidences: [1, 4, 5],
-          description:
-            "<b>EMF Level 5 + Orbs + Writings</b><br />Shy/hard to find. Less activity around groups. <span class='weakness'>Can't hunt if multiple people around.</span>",
-        },
-        {
-          name: "demon",
-          evidences: [2, 5, 6],
-          description:
-            "<b>Spiritbox + Writings + Freezing temps</b><br />Very aggressive. Attacks often. <span class='weakness'>Ouija board use won't affect sanity.</span>",
-        },
-        {
-          name: "yurei",
-          evidences: [4, 5, 6],
-          description:
-            "<b>Orbs + Writings + Freezing temps</b><br />Strong effect on sanity. <span class='weakness'>Smudging its room contains it to that room for a while.</span>",
-        },
-        {
-          name: "oni",
-          evidences: [1, 2, 5],
-          description:
-            "<b>EMF Level 5 + Spiritbox + Writings</b><br />More active with people nearby. <span class='weakness'>High activity makes it easier to find and identify.</span>",
-        },
-        {
-          name: "yokai",
-          evidences: [2, 4, 5],
-          description:
-            "<b>Spiritbox + Orbs + Writings</b><br />Talking near a Yokai will anger it and increase it's chance of attacking. <span class='weakness'>When hunting a Yokai can only hear voices close to it.</span>",
-        },
-        {
-          name: "hantu",
-          evidences: [3, 4, 5],
-          description:
-            "<b>Fingerprints + Orbs + Writings</b><br />Lower temperatures can cause the Hantu to move at faster speeds. <span class='weakness'>A Hantu will move slower in warmer areas.</span>",
-        },
-      ];
+    .wheel>.wheel-content {
+      display: none;
+    }
 
-      // Do not touch v
-      function getGhostInfoMatches(present, notPresent) {
-        return Object.values(
-          _.pickBy(
-            _.omitBy(ghostInfos, (ghost) =>
-              ghost.evidences.some((r) => notPresent.indexOf(r) >= 0)
-            ),
-            (ghost) => present.every((r) => ghost.evidences.indexOf(r) >= 0)
-          )
-        );
-      }
+    .wheel.open>.wheel-content {
+      display: block;
+      margin-top: 0.1em;
+    }
+  </style>
 
-      function getRemainingEvidenceIds(present, notPresent) {
-        return _.difference(
-          _.flatMap(
-            getGhostInfoMatches(present, notPresent),
-            (gi) => gi.evidences
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    /*
+    Beweise
+    1 = EMF Level 5
+    2 = Geisterbox
+    3 = Fingerabdrücke
+    4 = Geisterorb
+    5 = Geisterbuch
+    6 = Gefriertemperaturen
+    7 = D.O.T.S-Projektor
+    */
+
+    const ghostInfos = [
+      {
+        name: "spirit",
+        evidences: [1, 2, 5],
+        categories: "Keine Kategorie",
+        evidencedesc: "EMF Level 5 + Geisterbox + Geisterbuch",
+        strenghdesc: "▬ Keine Fähigkeiten.",
+        weaknessdesc: "▬ Wenn du einen Spirit ausräucherst, wird er für 3 Minuten an der Jagd gehindert, anstatt der üblichen 1.5 Minuten für die meisten Geister und 1 Minute für Dämonen.",
+        longdesc:
+          "Der Spirit ist eine der gewöhnlichsten Geisterarten, jedoch ist er sehr stark und gefährlich. Er wird für gewöhnlich in einem Gebiet gefunden, in dem der Tod einer Person unaufgeklärt blieb.",
+      },
+      {
+        name: "gespenst",
+        evidences: [1, 2, 7],
+        categories: "Visuell, Besondere Interaktion",
+        evidencedesc: "EMF Level 5 + Geisterbox + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Gespenst kann sich zu einem Spieler außerhalb einer Jagd teleportieren, was einen EMF 2-Wert ergibt.",
+        weaknessdesc: "▬ Schwebt, hat deshalb keine Fußabdrücke.",
+        longdesc:
+          "Ein Gespenst ist einer der gefährlichsten Geister die existieren. Er ist auch bekannt dafür, fliegen und durch Wände gehen zu können.",
+      },
+      {
+        name: "phantom",
+        evidences: [2, 3, 7],
+        categories: "Visuell, Besondere Interaktion",
+        evidencedesc: "Geisterbox + Fingerabdrücke + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Phantom kann zu einem bestimmten Spieler wandern und den Lieblingsraum dorthin wechseln. (Nicht zu Verwechseln mit dem Gespenst-Teleport) <br />▬ Hat ein viel längeres Blinken während der Jagd, wodurch es fast unsichtbar erscheint.",
+        weaknessdesc: "▬ Verschwindet beim Fotografieren.",
+        longdesc:
+          "Ein Phantom ist ein Geist, der von den Lebenden Besitz ergreifen kann. Meistens beschworen durch das Ouijaboard. Verursacht Angst in den Menschen um ihn herum.",
+      },
+      {
+        name: "poltergeist",
+        evidences: [2, 3, 5],
+        categories: "Visuell, Besondere Interaktion, Aktiv",
+        evidencedesc: "Geisterbox + Fingerabdrücke + Geisterbuch",
+        strenghdesc: "▬ Der Poltergeist neigt eher dazu, Gegenstände zu werfen und verringert die Sanity des Spielers um 2% für jeden geworfenen Gegenstand.<br />▬ Während der Jagd hat er eine 100%ige Chance, alle 0.5 Sekunden ein Objekt in der Nähe zu werfen.",
+        weaknessdesc: "▬ Kann eine Explosion von Gegenständen durchführen, wenn Gegenstände gestapelt sind.",
+        longdesc:
+          "Einer der berühmtesten Geister. Ein Poltergeist ist bekannt als ein Wesen das laut ist und Objekte um sich herum manipuliert, um seinen Opfern Angst einzujagen.",
+      },
+      {
+        name: "banshee",
+        evidences: [3, 4, 7],
+        categories: "Akustisch",
+        evidencedesc: "Fingerabdrücke + Geisterorb + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Banshee wählt einen Lieblingsspieler aus und ignoriert alle anderen Spieler (auch dessen Sanity und auch während der Jagd).<br />▬ Wenn der Lieblingsspieler nicht im Haus ist, jagt die Banshee ganz normal.<br />▬ Wenn der Lieblingsspieler stirbt, wählt die Banshee ein neues Ziel.",
+        weaknessdesc: "▬ Erhöhte Chance für singende Geisterereignisse.<br />▬ Einzigartiger Parabolmikrofon-Sound: klingt wie ein Schrei.",
+        longdesc:
+          "Die Banshee ist ein Jäger und wird alles attackieren. Sie ist bekannt dafür, ihre Opfer zu stalken bis Sie jemanden tötet.",
+      },
+      {
+        name: "dschinn",
+        evidences: [1, 3, 6],
+        categories: "Hohe Geschwindigkeit",
+        evidencedesc: "EMF Level 5 + Fingerabdrücke + Gefriertemperaturen",
+        strenghdesc: "▬ Wenn der Stromkasten eingeschaltet ist und der Dschinn Sichtkontakt zu einem Spieler hat, wird er schneller.<br />▬ Wenn er sich einem Spieler bis auf 3m nähert, läuft er wieder normal schnell.<br />▬ Hat die Fähigkeit, 25% der Sanity zu zerstören, wenn er sich in der Nähe eines Spielers befindet und der Stromkasten eingeschaltet ist: Es wird ein EMF-Wert am Stromkasten angezeigt, wenn diese Fähigkeit ausgeführt wird.",
+        weaknessdesc: "▬ Strom entziehen hindert am Nutzen seiner Fähigkeiten.<br />▬ Unfähig, den Stromkasten auszuschalten (wenn der Dschinn zufällig ein Licht einschaltet, das die Sicherung auslöst, könnte es sich immer noch um einen Dschinn handeln).",
+        longdesc:
+          "Ein Dschinn ist ein territorialer Geist, der bei Bedrängnis angreift. Er ist ebenfalls bekannt dafür, sich mit hoher Geschwindigkeit zu bewegen.",
+      },
+      {
+        name: "mare",
+        evidences: [2, 4, 5],
+        categories: "Besondere Interaktion, Aktiv, Frühe Jagd",
+        evidencedesc: "Geisterbox + Geisterorb + Geisterbuch",
+        strenghdesc: "▬ Die Mare kann mit 60% Sanity jagen, wenn das Licht aus ist und erst mit 40% Sanity, wenn das Licht an ist.<br />▬ Höhere Chance, Glühbirnen kaputt zu machen.<br />▬ Wandert mehr, wenn das Licht in seinem Zimmer an ist.",
+        weaknessdesc: "▬ Hat manchmal den Drang, ein eingeschaltetes Licht sofort wieder auszuschalten.",
+        longdesc:
+          "Eine Mare ist die Quelle von allen Albträumen, Sie wird bei Nacht am stärksten. Es wird erzählt, dass eine Mare den Verstand von Menschen kontrollieren kann.",
+      },
+      {
+        name: "revenant",
+        evidences: [4, 5, 6],
+        categories: "Hohe Geschwindigkeit",
+        evidencedesc: "Geisterorb + Geisterbuch + Gefriertemperaturen",
+        strenghdesc: "▬ Wenn der Revenant während der Jagd einen Spieler sieht, läuft er sehr schnell.",
+        weaknessdesc: "▬ Wenn der Revenant während der Jagd keinen Spieler sieht, läuft er sehr langsam.<br />▬ Nachdem er die letzte bekannte Position des Spielers erreicht hat, wird er allmählich wieder langsamer, wenn er den Spieler nicht sieht.",
+        longdesc:
+          "Ein Revenant ist langsam, aber attackiert heftig und wahllos. Gerüchten zufolge ist ein Revenant schneller, wenn er jemanden jagt.",
+      },
+      {
+        name: "shade",
+        evidences: [1, 5, 6],
+        categories: "Visuell",
+        evidencedesc: "EMF Level 5 + Geisterbuch + Gefriertemperaturen",
+        strenghdesc: "▬ Die Shade taucht bei Geisterereignissen oft in Schattenform auf oder macht mehr Luftball-Geisterereignisse.<br />▬ Die Wahrscheinlichkeit eines Geisterereignisses steigt, je niedriger die durchschnittliche Sanity ist.",
+        weaknessdesc: "▬ Sehr schüchterner und langweiliger Geist.<br />▬ Wirft nichts und jagt nicht, wenn ein Spieler in der Nähe ist.",
+        longdesc:
+          "Der Shade ist bekannt als ein schüchterner Geist. Wenn mehrere Menschen zusammen sind, werden alle paranormale Aktivitäten gestoppt.",
+      },
+      {
+        name: "dämon",
+        evidences: [3, 5, 6],
+        categories: "Aktiv, Frühe Jagd",
+        evidencedesc: "Fingerabdrücke + Geisterbuch + Gefriertemperaturen",
+        strenghdesc: "▬ Sehr aggressiv, kann auf jeder Sanity jagen.<br />▬ Die minimale Abklingzeit zwischen den Jagden beträgt 20 Sekunden (anstatt 25 Sekunden).<br />▬ Wenn du einen Dämon ausräucherst, wird er nur für 1 Minute an der Jagd gehindert, anstatt der üblichen 1.5 Minuten für die meisten Geister und 3 Minuten für Spirits.",
+        weaknessdesc: "▬ Das Kruzifix verhindert die Jagd bei einem Dämon mit einer erhöhten Reichweite von 5 Metern (statt 3 Meter bei anderen Geistern).",
+        longdesc:
+          "Ein Dämon ist einer der schlimmsten Geister, die man finden kann. Er ist bekannt dafür, ohne Sinn und Verstand anzugreifen.",
+      },
+      {
+        name: "yurei",
+        evidences: [4, 6, 7],
+        categories: "Besondere Interaktion, Schneller Sanityverlust",
+        evidencedesc: "Geisterorb + Gefriertemperaturen + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Yurei hat die Fähigkeit, 15% der Sanity zu zerstören, wenn ein Spieler in der Nähe ist. Dabei knallt er auch eine Tür in seinem Raum zu.",
+        weaknessdesc: "▬ Wenn er ausgeräuchtert, wird er für eine gewisse Zeit in seinem Raum gefangen sein.",
+        longdesc:
+          "Ein Yurei ist ein Geist, der aus Gründen des Hasses oder einer unerfüllten Rache in die physische Welt zurückkehrte.",
+      },
+      {
+        name: "oni",
+        evidences: [1, 6, 7],
+        categories: "Visuell, Schneller Sanityverlust",
+        evidencedesc: "EMF Level 5 + Gefriertemperaturen + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Oni nimmt die Hälfte deiner Sanity, wenn dich ein Geisterereignis trifft.<br />▬ Hat eine höhere Chance, bei Geisterereignissen seine volle Gestalt zu zeigen (statt als Schatten oder transparent).",
+        weaknessdesc: "▬ Kann nicht die Geisterereignisse 'Geisternebel' oder 'Luftball' ausführen.<br />▬ Er ist während der Jagd viel besser sichtbar, d. h. er blinkt viel weniger als andere Geister.",
+        longdesc:
+          "Onis sind Verwandte des Dämons und besitzen unglaubliche Stärke. Gerüchten zufolge sind sie aktiver in der Nähe ihres Opfers.",
+      },
+      {
+        name: "yokai",
+        evidences: [2, 4, 7],
+        categories: "Aktiv, Frühe Jagd",
+        evidencedesc: "Geisterbox + Geisterorb + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Yokai hat eine Chance, mit 80% Sanity zu jagen, wenn Spieler in der Nähe reden.<br />▬ Die Geisteraktivität ist erhöht, wenn man in der Nähe eines Yokais spricht.",
+        weaknessdesc: "▬ Während einer Jagd kann der Yokai Stimmen oder Geräte in einer Entfernung von mehr als 2.5 Metern nicht erkennen.<br />▬ Du kannst einem Yokai mit einer Spieluhr viel näher kommen, bevor die Spieluhr kaputt geht.",
+        longdesc:
+          "Ein Yokai ist ein gängiger Geist, der von menschlichen Stimmen angezogen wird. Sie spuken normalerweise in Familienhäusern.",
+      },
+      {
+        name: "hantu",
+        evidences: [3, 4, 6],
+        categories: "Hohe Geschwindigkeit, Erzwungener Beweis",
+        evidencedesc: "Fingerabdrücke + Geisterorb + Gefriertemperaturen",
+        strenghdesc: "▬ Je niedriger die Temperaturen, desto schneller wird ein Hantu.<br />▬ Hat eine erhöhte Chance, den Stromkasten auszuschalten.",
+        weaknessdesc: "▬ Beschleunigt sich nicht allmählich bei Sichtkontakt während einer Jagd.<br />▬ Erzeugt bei der Jagd in jedem Raum einen eisigen Atem, wenn der Stromkasten ausgeschaltet ist.<br />▬ Im Albtraummodus sind Gefriertemperaturen immer ein Beweis.",
+        longdesc:
+          "Ein Hantu ist ein seltener Geist, der in heißen Klimazonen zu finden ist. Sie sind dafür bekannt, dass sie bei kaltem Wetter häufig angreifen.",
+      },
+      {
+        name: "goryo",
+        evidences: [1, 3, 7],
+        categories: "Visuell, Erzwungener Beweis",
+        evidencedesc: "EMF Level 5 + Fingerabdrücke + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Goryo zeigt D.O.T.S nur über die Videokamera und auch nur wenn kein Spieler im selben Raum wie der Goryo ist.",
+        weaknessdesc: "▬ Verlässt sein Raum nicht so oft wie andere Geister und wechselt sein Lieblingsraum nicht.<br />▬ Im Albtraummodus ist D.O.T.S immer ein Beweis.",
+        longdesc:
+          "",
+      },
+      {
+        name: "myling",
+        evidences: [1, 3, 5],
+        categories: "Akustisch, Leise",
+        evidencedesc: "EMF Level 5 + Fingerabdrücke + Geisterbuch",
+        strenghdesc: "▬ Der Myling kann nur während der Jagd in einer Entfernung von 12 Metern oder weniger gehört werden (dies schließt Schritte UND lautstarke Jagdgeräusche ein).",
+        weaknessdesc: "▬ Der Myling wird mehr über das Parabolmikrofon sagen.",
+        longdesc:
+          "",
+      },
+      {
+        name: "onryo",
+        evidences: [2, 4, 6],
+        categories: "Besondere Interaktion, Frühe Jagd",
+        evidencedesc: "Geisterbox + Geisterorb + Gefriertemperaturen",
+        strenghdesc: "▬ Wenn der Onryo 3 Flammen ausbläst und keine anderen Flammen in der Nähe sind, die ihn am Jagen hindern, löst er eine Jagd aus, egal wie viel Sanity man hat.<br />▬Kann sich auch von den Flammen entfernen und trotzdem eine Jagd auslösen.",
+        weaknessdesc: "▬ Unfähig, im Umkreis von 4m um eine Flamme zu jagen.<br />▬ Um einen Onryo zu testen, stelle Kerzen und Kruzifixe in sein Raum: Der Onryo wird erst die Kerzen auspusten, bevor er das Kruzifix verbrennt.",
+        longdesc:
+          "",
+      },
+      {
+        name: "die zwillinge",
+        evidences: [1, 2, 6],
+        categories: "Aktiv, Besondere Interaktion, Hohe Geschwindigkeit",
+        evidencedesc: "EMF Level 5 + Geisterbox + Gefriertemperaturen",
+        strenghdesc: "▬ Einer von den beiden Zwillingen ist der „Lockvogel“-Zwilling. Dieser ist oft in einem anderen Raum, interagiert dort mit Sachen und kann von dort aus auch jagen.<br />▬ Können gleichzeitig mit Sachen interagieren (auch in verschiedenen Räumen).",
+        weaknessdesc: "▬ Die Zwillinge jagen niemals gemeinsam. Einer von den Zwillingen ist etwas schneller und der andere ist etwas langsamer.",
+        longdesc:
+          "",
+      },
+      {
+        name: "raiju",
+        evidences: [1, 4, 7],
+        categories: "Aktiv, Hohe Geschwindigkeit",
+        evidencedesc: "EMF Level 5 + Geisterorb + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Raiju ist während der Jagd deutlich schneller, wenn in seiner Nähe elektronische Geräte sind (6 Meter bei kleinen Maps, 8 Meter bei mittelgroßen Maps, 10 Meter bei großen Maps).<br />▬ Raijus stören während einer Jagd bereits ab 15 Metern alle elektronischen Geräte, anstatt ab 10 Metern bei allen anderen Geistern.<br />▬ Sind aggressiver wenn elektronische Geräte in der Nähe sind.",
+        weaknessdesc: "▬ Kopfkameras beeinflussen den Raiju nicht.",
+        longdesc:
+          "",
+      },
+      {
+        name: "obake",
+        evidences: [1, 3, 4],
+        categories: "Visuell, Besondere Interaktion, Schneller Sanityverlust, Erzwungener Beweis",
+        evidencedesc: "EMF Level 5 + Fingerabdrücke + Geisterorb",
+        strenghdesc: "▬ Der Obake hinterlässt nur mit einer 25%igen Chance Fingerabdrücke.<br />▬ Kann mit seiner Fähigkeit die Zeit halbieren, in der seine Fingerabdrücke sichtbar sind.",
+        weaknessdesc: "▬ Hinterlässt manchmal einen Fingerabdruck mit 6 Fingern.<br />▬ Hat eine kleine Chance, sein Aussehen zu ändern (auch während der Jagd).<br />▬ Im Albtraummodus sind Fingerabdrücke immer ein Beweis.",
+        longdesc:
+          "",
+      },
+      {
+        name: "der mimik",
+        evidences: [2, 3, 6, 4],
+        categories: "Alle Kategorien möglich",
+        evidencedesc: "Geisterbox + Fingerabdrücke + Gefriertemperaturen (+ Geisterorb)",
+        strenghdesc: "▬ Der Mimik ist der einzige Geist, der quasi 4 Beweise hat.<br />▬ Kann alle anderen Geister inklusive allen Fähigkeiten, Stärken und Schwächen (bis auf Beweise) imitieren.",
+        weaknessdesc: "▬ Imitiert immer Orbs, auch im Albtraummodus oder wenn alle Beweise ausgeschaltet sind.<br />▬ Während der Jagd, kann der Mimik nicht plötzlich einen anderen Geist imitieren.",
+        longdesc:
+          "",
+      },
+      {
+        name: "moroi",
+        evidences: [2, 5, 6],
+        categories: "Hohe Geschwindigkeit, Schneller Sanityverlust, Erzwungener Beweis",
+        evidencedesc: "Geisterbox + Geisterbuch + Gefriertemperaturen",
+        strenghdesc: "▬ Der Moroi verflucht alle Spieler, die eine Antwort durch die Geisterbox oder das Parabolmikrofon erhalten.<br />▬ Verfluchte Spieler verlieren doppelt so schnell Sanity.<br />▬ Kerzen und Lichter können den Fluch nicht verhindern.<br />▬ Je niedriger die durchschnittliche Sanity, desto schneller ist der Moroi während einer Jagd.<br />▬ Ist bei 0% Sanity der schnellste aller Geister.",
+        weaknessdesc: "▬ Der Fluch kann durch die Einnahme von Pillen gebrochen werden (ein erneuter Fluch ist jedoch möglich).<br />▬ Im Albtraummodus ist die Geisterbox immer ein Beweis.",
+        longdesc:
+          "",
+      },
+      {
+        name: "deogen",
+        evidences: [2, 5, 7],
+        categories: "Akustisch, Besondere Interaktion, Hohe Geschwindigkeit, Erzwungener Beweis",
+        evidencedesc: "Geisterbox + Geisterbuch + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Deogen weiß immer wo man ist, man kann sich nicht verstecken.<br />▬ Ist schneller, je weiter weg er von Spielern ist.",
+        weaknessdesc: "▬ Steht man direkt in dem Geist während man die Geisterbox benutzt, atmet der Deogen manchmal laut in die Geisterbox.<br />▬ Ist super langsam, wenn er in der Nähe von einem Spieler ist.<br />▬ Hat eine höhere Wahrscheinlichkeit, ins Geisterbuch zu schreiben und sich bei D.O.T.S zu zeigen.<br />▬ Im Albtraummodus ist die Geisterbox immer ein Beweis.",
+        longdesc:
+          "",
+      },
+      {
+        name: "thaye",
+        evidences: [4, 5, 7],
+        categories: "Aktiv, Hohe Geschwindigkeit, Frühe Jagd",
+        evidencedesc: "Geisterorb + Geisterbuch + D.O.T.S-Projektor",
+        strenghdesc: "▬ Der Thaye ist zu Beginn des Spiels jung, wodurch er schneller, aktiver und aggressiver ist und bereits mit 75% Sanity jagen kann.",
+        weaknessdesc: "▬ Der Thaye altert alle 1-2 Minuten wenn sich in seiner Nähe Spieler aufhalten, wodurch er langsamer und ruhiger wird.<br />▬ Wenn der Thaye sehr alt ist, kann er nur noch mit 15% Sanity jagen.<br />▬ Beschleunigt sich nicht allmählich bei Sichtkontakt während einer Jagd.<br />▬ Das Altern kann durch das Ouija-Brett überprüft werden.",
+        longdesc:
+          "",
+      },
+    ];
+
+    function getGhostInfoMatches(present, notPresent) {
+      return Object.values(
+        _.pickBy(
+          _.omitBy(ghostInfos, (ghost) =>
+            ghost.evidences.some((r) => notPresent.indexOf(r) >= 0)
           ),
-          present
-        );
-      }
-      // Do not touch ^
+          (ghost) => present.every((r) => ghost.evidences.indexOf(r) >= 0)
+        )
+      );
+    }
 
-      let evidenceArray = [];
+    function getRemainingEvidenceIds(present, notPresent) {
+      return _.difference(
+        _.flatMap(
+          getGhostInfoMatches(present, notPresent),
+          (gi) => gi.evidences
+        ),
+        present
+      );
+    }
 
-      function toggleEvidence(evidence) {
-        console.clear();
+    let evidenceArray = [];
 
-        // if that evidence doesn't exist in the array (-1)
-        if (evidenceArray.indexOf(evidence) === -1) {
-          evidenceArray.push(evidence);
-        } else {
-          evidenceArray.splice(evidenceArray.indexOf(evidence), 1);
-        }
+    function resetEvidence(resettable) {
+      if (resettable == 1) {
+        document.getElementById("possibleGhosts").innerHTML =
+          "<p>Wir brauchen handfeste Beweise. Ich sollte Räume mit einem EMF-Gerät auf Aktivität überprüfen, oder mit einem Thermometer auf Minustemperaturen.</p><br />";
+        evidenceArray = [];
+        updateButtons();
+      };
+      getGhostInfoMatches(evidenceArray, []).forEach((ghostInfo) => {
+        document.getElementById("possibleGhosts").innerHTML +=
+          "<li>" + ghostInfo.name + "</li> <b><p class='categories'>" + ghostInfo.categories + "</p><p>" + ghostInfo.evidencedesc + "<p></b><p class='strengh'>" + ghostInfo.strenghdesc + "</p><p class='weakness'>" + ghostInfo.weaknessdesc;
+      });
+    }
 
-        // get ghost matches according to entered evidence
-        document.getElementById("possibleGhosts").innerHTML = "";
+    function toggleEvidence(evidence) {
+      console.clear();
 
-        getGhostInfoMatches(evidenceArray, []).forEach((ghostInfo) => {
-          // getGhostMatches([foundEvidence], [missingEvidence])
-          document.getElementById("possibleGhosts").innerHTML +=
-            "<li>" + ghostInfo.name + "</li> <p>" + ghostInfo.description;
-        });
-
-        if (evidenceArray.length == 0) {
+      if (evidenceArray.indexOf(evidence) === -1) {
+        //if (evidenceArray.length >= 3) {
+        if (getRemainingEvidenceIds(evidenceArray, []).length == 0) {
           document.getElementById("possibleGhosts").innerHTML =
-            "<br /><p>We need tangible evidence. I should check rooms with an EMF reader for activity, or a thermometer for sub-zero temperatures.</p>";
-        }
+            "<p><b>Es sind nur 3 Beweise nötig!</b></p><br />";
+          resetEvidence();
+          return
+        };
+        evidenceArray.push(evidence);
+      } else {
+        evidenceArray.splice(evidenceArray.indexOf(evidence), 1);
+      }
 
-        document.getElementById("emf").style.backgroundImage =
-          "url('btnsDisabled/emf.png')";
-        document.getElementById("spiritbox").style.backgroundImage =
-          "url('btnsDisabled/spiritbox.png')";
-        document.getElementById("fingerprints").style.backgroundImage =
-          "url('btnsDisabled/fingerprints.png')";
-        document.getElementById("ghostorbs").style.backgroundImage =
-          "url('btnsDisabled/ghostorbs.png')";
-        document.getElementById("ghostwritings").style.backgroundImage =
-          "url('btnsDisabled/ghostwritings.png')";
-        document.getElementById("freezingtemperatures").style.backgroundImage =
-          "url('btnsDisabled/freezingtemperatures.png')";
+      document.getElementById("possibleGhosts").innerHTML = "";
 
-        getRemainingEvidenceIds(evidenceArray, []).forEach((evidenceId) => {
-          document.getElementById(
-            getEvidenceByID(evidenceId)
-          ).style.backgroundImage =
-            "url('btnsUnchecked/" + getEvidenceByID(evidenceId) + ".png')"; // enabled button (possible evidence)
+      getGhostInfoMatches(evidenceArray, []).forEach((ghostInfo) => {
+        document.getElementById("possibleGhosts").innerHTML +=
+          "<li>" + ghostInfo.name + "</li> <b><p class='categories'>" + ghostInfo.categories + "</p><p>" + ghostInfo.evidencedesc + "<p></b><p class='strengh'>" + ghostInfo.strenghdesc + "</p><p class='weakness'>" + ghostInfo.weaknessdesc;
+      });
+
+      if (evidenceArray.length == 3) {
+        getGhostInfoMatches(evidenceArray, []).forEach((ghostInfo) => {
+          document.getElementById("possibleGhosts").innerHTML +=
+            "<br /><p><i>" + ghostInfo.longdesc + "</i>";
         });
-
-        for (var i = 0; i < evidenceArray.length; i++) {
-          document.getElementById(
-            getEvidenceByID(evidenceArray[i])
-          ).style.backgroundImage =
-            "url('btnsChecked/" + getEvidenceByID(evidenceArray[i]) + ".png')"; // selected button
-        }
       }
 
-      function getEvidenceByID(id) {
-        switch (id) {
-          case 1:
-            return "emf";
-            break;
-          case 2:
-            return "spiritbox";
-            break;
-          case 3:
-            return "fingerprints";
-            break;
-          case 4:
-            return "ghostorbs";
-            break;
-          case 5:
-            return "ghostwritings";
-            break;
-          case 6:
-            return "freezingtemperatures";
-            break;
-          default:
-            return "error";
-        }
+      if (evidenceArray.length == 0) {
+        document.getElementById("possibleGhosts").innerHTML =
+          "<p>Wir brauchen handfeste Beweise. Ich sollte Räume mit einem EMF-Gerät auf Aktivität überprüfen, oder mit einem Thermometer auf Minustemperaturen.</p><br />";
+        resetEvidence();
       }
-    </script>
-  </head>
 
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-lg-5">
-          <div id="evidence">
-            <h1>Evidence found</h1>
-            <div class="button" id="emf" onClick="toggleEvidence(1)"></div>
-            <div
-              class="button"
-              id="spiritbox"
-              onClick="toggleEvidence(2)"
-            ></div>
-            <div
-              class="button"
-              id="fingerprints"
-              onClick="toggleEvidence(3)"
-            ></div>
-            <div
-              class="button"
-              id="ghostorbs"
-              onClick="toggleEvidence(4)"
-            ></div>
-            <div
-              class="button"
-              id="ghostwritings"
-              onClick="toggleEvidence(5)"
-            ></div>
-            <div
-              class="button"
-              id="freezingtemperatures"
-              onClick="toggleEvidence(6)"
-            ></div>
-          </div>
+      updateButtons();
+    }
+
+    function updateButtons() {
+      document.getElementById("emf").style.textShadow =
+        "0px 0px 15px #c36262";
+      document.getElementById("spiritbox").style.textShadow =
+        "0px 0px 15px #c36262";
+      document.getElementById("fingerprints").style.textShadow =
+        "0px 0px 15px #c36262";
+      document.getElementById("ghostorbs").style.textShadow =
+        "0px 0px 15px #c36262";
+      document.getElementById("ghostwritings").style.textShadow =
+        "0px 0px 15px #c36262";
+      document.getElementById("freezingtemperatures").style.textShadow =
+        "0px 0px 15px #c36262";
+      document.getElementById("dots").style.textShadow =
+        "0px 0px 15px #c36262";
+
+      document.getElementById("emf").style.textDecorationLine =
+        "line-through";
+      document.getElementById("spiritbox").style.textDecorationLine =
+        "line-through";
+      document.getElementById("fingerprints").style.textDecorationLine =
+        "line-through";
+      document.getElementById("ghostorbs").style.textDecorationLine =
+        "line-through";
+      document.getElementById("ghostwritings").style.textDecorationLine =
+        "line-through";
+      document.getElementById("freezingtemperatures").style.textDecorationLine =
+        "line-through";
+      document.getElementById("dots").style.textDecorationLine =
+        "line-through";
+
+      getRemainingEvidenceIds(evidenceArray, []).forEach((evidenceId) => {
+        document.getElementById(getEvidenceByID(evidenceId)).style.textShadow =
+          "none";
+        document.getElementById(getEvidenceByID(evidenceId)).style.textDecorationLine =
+          "none";
+      });
+
+      for (var i = 0; i < evidenceArray.length; i++) {
+        document.getElementById(getEvidenceByID(evidenceArray[i])).style.textShadow =
+          "0px 0px 10px #008000";
+        document.getElementById(getEvidenceByID(evidenceArray[i])).style.textDecorationLine =
+          "none";
+      }
+    }
+
+    function getEvidenceByID(id) {
+      switch (id) {
+        case 1:
+          return "emf";
+          break;
+        case 2:
+          return "spiritbox";
+          break;
+        case 3:
+          return "fingerprints";
+          break;
+        case 4:
+          return "ghostorbs";
+          break;
+        case 5:
+          return "ghostwritings";
+          break;
+        case 6:
+          return "freezingtemperatures";
+          break;
+        case 7:
+          return "dots";
+          break;
+        default:
+          return "error";
+      }
+    }
+
+    window.onload = function () {
+      resetEvidence();
+    };
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-5">
+        <div id="evidence">
+          <h1 style="display: inline-block;">Gefundene Beweise</h1>
+          <div id="reset" onclick="resetEvidence(1)">↻</div>
+          <div class="button" id="emf" onclick="toggleEvidence(1)">EMF Level 5</div>
+          <div class="button" id="spiritbox" onclick="toggleEvidence(2)">Geisterbox</div>
+          <div class="button" id="fingerprints" onclick="toggleEvidence(3)">Fingerabdrücke</div>
+          <div class="button" id="ghostorbs" onclick="toggleEvidence(4)">Geisterorb</div>
+          <div class="button" id="ghostwritings" onclick="toggleEvidence(5)">Geisterbuch</div>
+          <div class="button" id="freezingtemperatures" onclick="toggleEvidence(6)">Gefriertemperaturen</div>
+          <div class="button" id="dots" onclick="toggleEvidence(7)">D.O.T.S-Projektor</div>
         </div>
-        <div class="col-12 col-lg-7">
-          <div id="ghosts">
-            <h1>Possible Ghosts</h1>
-            <ul id="possibleGhosts">
-              <br />
-              <p>
-                We need tangible evidence. I should check rooms with an EMF
-                reader for activity, or a thermometer for sub-zero temperatures.
-              </p>
-            </ul>
+        <br><br>
+        <div class="wheel">
+          <div class="wheel-toggle">Challengerad anzeigen</div>
+          <div class="wheel-content">
+            <iframe
+              src="https://wheeldecide.com/e.php?c1=Keine+Batterie&c2=Kein+Funk&c3=Kein+Verstecken&c4=Kein+Sprinten&c5=Kein+LKW&c6=Keine+Taschenlampe&c7=Starter+Items&c8=Nur+ducken&c9=Ein+Slot+Inv&c10=Kein+Thermometer&c11=Nur+Kerze+als+Licht&c12=Kein+Pille%2FKreuz%2FR%C3%A4ucherstab&c13=Keine+T%C3%BCren+schlie%C3%9Fen&c14=Familienfreundlich&c15=Beim+Hunt+alles+fallen+lassen&c16=Keine+Lichter&c17=Nur+%22S%22+Taste&c18=Kein+Voicechat&col=fall&time=4&width=400"
+              width="400" height="400" scrolling="no" frameborder="0"></iframe>
           </div>
         </div>
       </div>
+      <div class="col-12 col-lg-7">
+        <div id="ghosts">
+          <h1>Mögliche Geister</h1>
+          <ul id="possibleGhosts">
+            <p>
+              Wir brauchen handfeste Beweise. Ich sollte Räume mit einem EMF-Gerät
+              auf Aktivität überprüfen, oder mit einem Thermometer auf Minustemperaturen.
+            </p>
+            <br>
+          </ul>
+        </div>
+      </div>
     </div>
-    <!-- JS, Popper.js, and jQuery -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-  </body>
+  </div>
+  <script>
+    $(function () {
+      $('.wheel-toggle').click(function (e) {
+        e.preventDefault();
+        $(this).parent().toggleClass('open');
+      });
+    });
+  </script>
+</body>
+
 </html>
