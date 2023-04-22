@@ -10,4 +10,5 @@
 - Challengerad (falls die Custom-Difficulty auf max. Settings nicht ausreicht 🙂)
   
   
-_Stand: April 2023_
+Direktlink: https://mekrip.github.io/PhasmoTagebuch/  
+_Stand: April 2023_  
